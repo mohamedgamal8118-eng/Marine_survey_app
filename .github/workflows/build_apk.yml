@@ -27,7 +27,8 @@ jobs:
         run: |
           mkdir temp_app
           cd temp_app
-          flutter create --org com.seafalcons.app app
+          flutter create --org com.seafalcons.app --project-name marine_survey_app app
+
           cp -r app/android ../
           cd ..
           rm -rf temp_app
