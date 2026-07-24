@@ -23,17 +23,23 @@ jobs:
           flutter-version: '3.19.x'
           channel: 'stable'
 
-      - name: Reconstruct Android Platform
+      - name: Create Complete App Structure
         run: |
-          mkdir temp_proj
-          cd temp_proj
-          flutter create . --org com.seafalcons.app --project-name marine_survey_app
-          cp -r android ../
-          cd ..
-          rm -rf temp_proj
+          flutter create --org com.seafalcons.app --project-name marine_survey_app my_app
+          cp -r my_app/android ./
+          rm -rf my_app
 
       - name: Install Dependencies
         run: flutter pub get
+
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Sea-Falcons-App
+          path: build/app/outputs/flutter-apk/app-release.apk
 
       - name: Build APK
         run: flutter build apk --release
