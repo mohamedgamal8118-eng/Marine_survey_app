@@ -23,24 +23,22 @@ jobs:
           flutter-version: '3.19.x'
           channel: 'stable'
 
-      - name: Create Flutter Project Skeleton
+      - name: Reconstruct Android Platform
         run: |
-          mkdir temp_app
-          cd temp_app
-          flutter create --org com.seafalcons.app marine_survey_app
-          cp -r marine_survey_app/android ../
-          cp -r marine_survey_app/web ../ 2>/dev/null || true
-          cp marine_survey_app/pubspec.yaml ../
+          mkdir temp_proj
+          cd temp_proj
+          flutter create . --org com.seafalcons.app --project-name marine_survey_app
+          cp -r android ../
           cd ..
-          rm -rf temp_app
+          rm -rf temp_proj
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: flutter pub get
 
       - name: Build APK
         run: flutter build apk --release
 
-      - name: Upload APK
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v3
         with:
           name: Sea-Falcons-App
