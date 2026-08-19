@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
@@ -24,13 +24,10 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Recreate Android Project Configuration
+      - name: Build Project
         run: |
-          flutter create . --org com.seafalcons.app --project-name marine_survey_app --overwrite
-          flutter pub get
-
-      - name: Build APK
-        run: flutter build apk --release
+          flutter create . --org com.seafalcons.app --project-name marine_survey_app
+          flutter build apk --release
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
