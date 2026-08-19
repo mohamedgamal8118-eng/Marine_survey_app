@@ -24,9 +24,12 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Build Project
+      - name: Recreate Android Framework & Build
         run: |
-          flutter create . --org com.seafalcons.app --project-name marine_survey_app
+          cp lib/main.dart lib/main.dart.bak
+          flutter create . --org com.seafalcons.app --project-name marine_survey_app --overwrite
+          mv lib/main.dart.bak lib/main.dart
+          flutter pub get
           flutter build apk --release
 
       - name: Upload APK Artifact
