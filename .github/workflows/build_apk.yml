@@ -24,10 +24,13 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Build APK
+      - name: Recreate Android Project Configuration
         run: |
+          flutter create . --org com.seafalcons.app --project-name marine_survey_app --overwrite
           flutter pub get
-          flutter build apk --release
+
+      - name: Build APK
+        run: flutter build apk --release
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
